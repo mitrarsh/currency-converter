@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Alibaba';
+  src: url('/fonts/AlibabaFonts/fonts/woff2/Alibaba-Regular.woff2') format('woff2'),
+    url('/fonts/AlibabaFonts/fonts/woff/Alibaba-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alibaba';
+  src: url('/fonts/AlibabaFonts/fonts/woff2/Alibaba-Bold.woff2') format('woff2'),
+    url('/fonts/AlibabaFonts/fonts/woff/Alibaba-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@theme {
+  --color-text: #6B625E;
+  --color-text-h: #211A17;
+
+  --color-bg: #FFFCFA;
+  --color-code-bg: #F5EFEB;
+  --color-border: #E9DED8;
+
+  --color-brand: #F2673D;
+  --color-brand-hover: #D9532D;
+  --color-brand-bg: #FDE9E2;
+  --color-brand-border: #F7B39F;
+}
+
+:root {
+  --text: #6B625E;
+  --text-h: #211A17;
+  --bg: #FFFCFA;
+  --code-bg: #F5EFEB;
+  --border: #E9DED8;
+
+  --accent: #F2673D;
+  --accent-hover: #D9532D;
+  --accent-bg: rgba(242, 103, 61, 0.10);
+  --accent-border: rgba(242, 103, 61, 0.50);
+
+  --shadow:
+    rgba(57, 35, 25, 0.10) 0 10px 15px -3px,
+    rgba(57, 35, 25, 0.05) 0 4px 6px -2px;
+
+  --font-fa: "Alibaba", sans-serif;
+  --font-en: "Outfit", sans-serif
+
+  --font-sans: "Alibaba", sans-serif;
+  --font-mono: "Fira Code", monospace;
+
+  --transition: all ease-in-out 0.5;
+
+  letter-spacing: 0.18px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 100svh;
+  box-sizing: border-box;
+}
+
+html[lang="fa"] body {
+  font-family: var(--font-fa);
+}
+html[lang="en"] body {
+  font-family: var(--font-en);
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 40px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+.transition{
+  transition: all 0.3 ease-in-out
+}
