@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button } from './Button'
 import { Input } from './Input'
 
@@ -16,16 +16,16 @@ const Modal = ({
 }: ModalProps) => {
 
 
-    const [newRate, setNewRate] = useState(rate)
+    const [newRate, setNewRate] = useState(String(rate))
 
     const handleSave = () => {
-        const rate = Number(newRate)
+        const updatedRate = Number(newRate)
 
-        if ( rate <= 0) {
+        if (!Number.isFinite(updatedRate) || updatedRate <= 0) {
             return
         }
 
-        setRate(rate)
+        setRate(updatedRate)
         setModalOpen(false)
     }
 
