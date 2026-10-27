@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Button } from './components/Button'
 import { CurrencyCard } from './components/CurrencyCard'
@@ -9,11 +9,41 @@ import Modal from './components/Modal'
 import { useCurrencyConvert } from './hooks.tsx/useCurrencyConvert'
 
 function App() {
-  const [rate, setRate] = useState<number>(2685000)
+  const [rate, setRate] = useState<number>(0)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [from, setFrom] = useState<"rial" | "dollar">("rial")
   const [amount, setAmount] = useState("")
 
+
+useEffect(() => {
+  const fetchRate = async () => {
+    try {
+      const response = await fetch(
+        'https://api.sarmayex.com/api/v1/usdt-price'
+      )
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch exchange rate')
+      }
+
+      const data: {
+        cost: string
+        sellPrice: string
+        buyPrice: string
+      } = await response.json()
+
+      const rateInRials = Number(data.cost) * 10
+
+      if (Number.isFinite(rateInRials) && rateInRials > 0) {
+        setRate(rateInRials)
+      }
+    } catch (error) {
+      console.error('failed to fetch', error)
+    }
+  }
+
+  fetchRate()
+}, [])
 
   const toPersianNumber = usePersianNumber()
   const convertedAmount = useCurrencyConvert({
