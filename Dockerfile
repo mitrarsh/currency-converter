@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN npm config set registry https://package-mirror.liara.ir/repository/npm/ --global
+
 RUN npm install
 
 COPY . .

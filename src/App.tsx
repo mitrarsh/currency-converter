@@ -15,7 +15,6 @@ function App() {
   const [amount, setAmount] = useState("")
 
 
-useEffect(() => {
   const fetchRate = async () => {
     try {
       const response = await fetch(
@@ -38,12 +37,13 @@ useEffect(() => {
         setRate(rateInRials)
       }
     } catch (error) {
-      console.error('failed to fetch', error)
+      console.error('Failed to fetch exchange rate:', error)
     }
   }
 
-  fetchRate()
-}, [])
+  useEffect(() => {
+    fetchRate()
+  }, [])
 
   const toPersianNumber = usePersianNumber()
   const convertedAmount = useCurrencyConvert({
@@ -64,6 +64,7 @@ useEffect(() => {
           <div className='flex items-center gap-3'>
             <p className='text-brand'>{toPersianNumber(1)} دلار = {toPersianNumber(rate)} ریال</p>
             <Button type='secondary' handleClick={() => setModalOpen(true)}><EditIcon /></Button>
+            <Button type='primary' styles='text-xs' handleClick={fetchRate}>دریافت انلاین قیمت</Button>
           </div>
 
           <Input label='برای شروع مبدل مورد نظر خود را وارد کنید' value={amount} onChange={(event) => setAmount(event.target.value)} />
@@ -71,7 +72,7 @@ useEffect(() => {
           <div className='flex flex-col sm:flex-row gap-4 relative mt-8 items-center'>
             <CurrencyCard currency={from} label='از' />
             <Button
-            styles='w-fit'
+              styles='w-fit'
               handleClick={() =>
                 setFrom(prev => (prev === "rial" ? "dollar" : "rial"))
               }>
@@ -81,20 +82,20 @@ useEffect(() => {
 
           </div>
 
-           {convertedAmount !== null && (
-          <div className="mt-4 rounded-xl p-4">
-            <p className="text-text-h">
-              نتیجه تبدیل:
-            </p>
+          {convertedAmount !== null && (
+            <div className="mt-4 rounded-xl p-4">
+              <p className="text-text-h">
+                نتیجه تبدیل:
+              </p>
 
-            <p className="text-brand text-xl font-bold">
-              {toPersianNumber(
-                Number(convertedAmount.toFixed(2))
-              )}{" "}
-              {from === "rial" ? "دلار" : "ریال"}
-            </p>
-          </div>
-        )}
+              <p className="text-brand text-xl font-bold">
+                {toPersianNumber(
+                  Number(convertedAmount.toFixed(2))
+                )}{" "}
+                {from === "rial" ? "دلار" : "ریال"}
+              </p>
+            </div>
+          )}
         </div>
         {modalOpen &&
           <Modal
@@ -102,7 +103,7 @@ useEffect(() => {
             rate={rate}
             setRate={setRate}
           />}
-       
+
       </main>
     </>
   )
